@@ -1,3 +1,14 @@
+## Web Workers Example
+
+Web workers implemented inside a Context Provider. Code from @kentcdodds
+excellent workshops on
+[react performance](https://www.epicreact.dev/workshops/react-performance/web-worker?section=expensive-calculations)
+and
+[full stack foundations](https://www.epicweb.dev/workshops/full-stack-foundations).
+Related: https://kentcdodds.com/blog/speed-up-your-app-with-web-workers
+
+## Epic App Readme
+
 <div align="center">
   <h1 align="center"><a href="https://www.epicweb.dev/epic-stack">The Epic Stack 🚀</a></h1>
   <strong align="center">
