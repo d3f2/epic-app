@@ -24,21 +24,24 @@ const CitiesContext = React.createContext<CitiesContextProps | undefined>(
 )
 
 type CitiesContextProviderProps = {
+	// filterCities: typeof Comlink.wrap
 	children: React.ReactNode
 }
 
+const worker = new Worker(
+	new URL('../workers/filter-cities.worker', import.meta.url),
+	{
+		type: 'module',
+	},
+)
+
+const filterCities = Comlink.wrap<Exposed>(worker)
+
 export const CitiesContextProvider = ({
+	// filterCities,
 	children,
 }: CitiesContextProviderProps) => {
-	// @kentcdodds: is loading here too late (?), can alternatively load inside workers/index.client.ts (?)
-	const worker = new Worker(
-		new URL('../workers/filter-cities.worker', import.meta.url),
-		{
-			type: 'module',
-		},
-	)
-
-	const filterCities = Comlink.wrap<Exposed>(worker)
+	// @kentcdodds: why if I instantiate the worker here do I get multiple workers (?) i thought CityRoute renders once and therefore the context provider renders once.
 
 	async function searchCities(input: string) {
 		return filterCities.searchCities(input)

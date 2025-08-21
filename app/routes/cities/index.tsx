@@ -33,6 +33,8 @@ import {
 	useCitiesContext,
 } from '#app/providers/city-provider.client.tsx'
 import { useCombobox, useForceRerender } from './utils.tsx'
+import * as Comlink from 'comlink'
+import { type Exposed } from '#app/workers/filter-cities.worker.ts'
 
 type City = {
 	id: string
@@ -56,7 +58,7 @@ export const clientLoader = async ({
 	params,
 	serverLoader,
 }: ClientLoaderFunctionArgs) => {
-	// @kentcdodds leaving this here for discussion... is this possible in client loader? I have moved it to a context provider.
+	// @kentcdodds is this an appropriate place for the worker?
 	// const worker = new Worker(
 	// 	new URL('../../workers/filter-cities.worker', import.meta.url),
 	// 	{ type: 'module' },
@@ -84,9 +86,12 @@ export async function action({ params }: ActionFunctionArgs) {
 }
 
 export default function CityRoute() {
+	// const { filterCities } = useLoaderData()
+
 	return (
 		<>
 			<CitiesContextProvider>
+				{/* filterCities={filterCities} */}
 				<div className="container mt-36 mb-48 flex flex-col items-center justify-center gap-6">
 					<Suspense fallback="Loading...">
 						<CityChooser />
